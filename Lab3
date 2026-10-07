@@ -1,0 +1,435 @@
+import java.util.Scanner;
+
+// ===============================
+// ЗАВДАННЯ 1
+// Варіант 2:
+// Службовець, Персона, Робітник, Інженер
+// ===============================
+
+// Базовий клас
+class Person {
+    protected String name;
+    protected int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void Show() {
+        System.out.println("Персона: " + name + ", вік: " + age);
+    }
+}
+
+// Службовець успадковує Person
+class Employee extends Person {
+    protected double salary;
+
+    public Employee(String name, int age, double salary) {
+        super(name, age);
+        this.salary = salary;
+    }
+
+    @Override
+    public void Show() {
+        System.out.println("Службовець: " + name +
+                ", вік: " + age +
+                ", зарплата: " + salary);
+    }
+}
+
+// Робітник успадковує Employee
+class Worker extends Employee {
+    private String profession;
+
+    public Worker(String name, int age, double salary, String profession) {
+        super(name, age, salary);
+        this.profession = profession;
+    }
+
+    @Override
+    public void Show() {
+        System.out.println("Робітник: " + name +
+                ", вік: " + age +
+                ", зарплата: " + salary +
+                ", професія: " + profession);
+    }
+}
+
+// Інженер успадковує Employee
+class Engineer extends Employee {
+    private String specialty;
+
+    public Engineer(String name, int age, double salary, String specialty) {
+        super(name, age, salary);
+        this.specialty = specialty;
+    }
+
+    @Override
+    public void Show() {
+        System.out.println("Інженер: " + name +
+                ", вік: " + age +
+                ", зарплата: " + salary +
+                ", спеціальність: " + specialty);
+    }
+}
+
+
+// ===============================
+// ЗАВДАННЯ 2
+// Варіант 2:
+// Body -> Parallelepiped, Ball
+// ===============================
+
+abstract class Body {
+    public abstract double surfaceArea();
+
+    public abstract double volume();
+
+    public abstract void Show();
+}
+
+// Паралелепіпед
+class Parallelepiped extends Body {
+    private double a;
+    private double b;
+    private double c;
+
+    public Parallelepiped(double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+
+    @Override
+    public double surfaceArea() {
+        return 2 * (a * b + a * c + b * c);
+    }
+
+    @Override
+    public double volume() {
+        return a * b * c;
+    }
+
+    @Override
+    public void Show() {
+        System.out.println("Паралелепіпед:");
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+        System.out.println("c = " + c);
+        System.out.println("Площа поверхні = " + surfaceArea());
+        System.out.println("Об'єм = " + volume());
+    }
+
+    @Override
+    public String toString() {
+        return "Parallelepiped{" +
+                "a=" + a +
+                ", b=" + b +
+                ", c=" + c +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Parallelepiped)) {
+            return false;
+        }
+
+        Parallelepiped other = (Parallelepiped) obj;
+
+        return a == other.a &&
+                b == other.b &&
+                c == other.c;
+    }
+}
+
+// Куля
+class Ball extends Body {
+    private double radius;
+
+    public Ball(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double surfaceArea() {
+        return 4 * Math.PI * radius * radius;
+    }
+
+    @Override
+    public double volume() {
+        return (4.0 / 3.0) * Math.PI * radius * radius * radius;
+    }
+
+    @Override
+    public void Show() {
+        System.out.println("Куля:");
+        System.out.println("Радіус = " + radius);
+        System.out.println("Площа поверхні = " + surfaceArea());
+        System.out.println("Об'єм = " + volume());
+    }
+
+    @Override
+    public String toString() {
+        return "Ball{" +
+                "radius=" + radius +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Ball)) {
+            return false;
+        }
+
+        Ball other = (Ball) obj;
+
+        return radius == other.radius;
+    }
+}
+
+
+// ===============================
+// ЗАВДАННЯ 3
+// Body замінено інтерфейсом
+// ===============================
+
+interface BodyInterface {
+    double surfaceArea();
+
+    double volume();
+
+    void Show();
+}
+
+// Паралелепіпед через інтерфейс
+class ParallelepipedInterface implements BodyInterface {
+    private double a;
+    private double b;
+    private double c;
+
+    public ParallelepipedInterface(double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+
+    @Override
+    public double surfaceArea() {
+        return 2 * (a * b + a * c + b * c);
+    }
+
+    @Override
+    public double volume() {
+        return a * b * c;
+    }
+
+    @Override
+    public void Show() {
+        System.out.println("Паралелепіпед через інтерфейс:");
+        System.out.println("Площа поверхні = " + surfaceArea());
+        System.out.println("Об'єм = " + volume());
+    }
+
+    @Override
+    public String toString() {
+        return "ParallelepipedInterface{" +
+                "a=" + a +
+                ", b=" + b +
+                ", c=" + c +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ParallelepipedInterface)) {
+            return false;
+        }
+
+        ParallelepipedInterface other =
+                (ParallelepipedInterface) obj;
+
+        return a == other.a &&
+                b == other.b &&
+                c == other.c;
+    }
+}
+
+// Куля через інтерфейс
+class BallInterface implements BodyInterface {
+    private double radius;
+
+    public BallInterface(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double surfaceArea() {
+        return 4 * Math.PI * radius * radius;
+    }
+
+    @Override
+    public double volume() {
+        return (4.0 / 3.0) * Math.PI *
+                radius * radius * radius;
+    }
+
+    @Override
+    public void Show() {
+        System.out.println("Куля через інтерфейс:");
+        System.out.println("Площа поверхні = " + surfaceArea());
+        System.out.println("Об'єм = " + volume());
+    }
+
+    @Override
+    public String toString() {
+        return "BallInterface{" +
+                "radius=" + radius +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof BallInterface)) {
+            return false;
+        }
+
+        BallInterface other = (BallInterface) obj;
+
+        return radius == other.radius;
+    }
+}
+
+
+// ===============================
+// ГОЛОВНИЙ КЛАС
+// ===============================
+
+public class Lab3 {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=================================");
+        System.out.println("ЛАБОРАТОРНА РОБОТА №3");
+        System.out.println("Спадкування. Інтерфейси.");
+        System.out.println("Варіант 2");
+        System.out.println("=================================");
+
+        // ---------------------------------
+        // ЗАВДАННЯ 1
+        // ---------------------------------
+
+        System.out.println("\n===== ЗАВДАННЯ 1 =====");
+
+        Person person = new Person("Іван", 30);
+
+        Employee employee =
+                new Employee("Петро", 35, 25000);
+
+        Worker worker =
+                new Worker("Олексій", 28, 22000, "Слюсар");
+
+        Engineer engineer =
+                new Engineer("Андрій", 32, 35000, "Програміст");
+
+        Person[] people = {
+                person,
+                employee,
+                worker,
+                engineer
+        };
+
+        System.out.println("\nІєрархія класів:");
+
+        for (Person p : people) {
+            p.Show();
+        }
+
+
+        // ---------------------------------
+        // ЗАВДАННЯ 2
+        // ---------------------------------
+
+        System.out.println("\n===== ЗАВДАННЯ 2 =====");
+
+        Body parallelepiped =
+                new Parallelepiped(2, 3, 4);
+
+        Body ball =
+                new Ball(5);
+
+        Body[] bodies = {
+                parallelepiped,
+                ball
+        };
+
+        for (Body body : bodies) {
+            body.Show();
+            System.out.println();
+        }
+
+        System.out.println("Перевірка toString():");
+        System.out.println(parallelepiped);
+        System.out.println(ball);
+
+        System.out.println("\nПеревірка equals():");
+
+        Parallelepiped p1 =
+                new Parallelepiped(2, 3, 4);
+
+        Parallelepiped p2 =
+                new Parallelepiped(2, 3, 4);
+
+        System.out.println(
+                "p1.equals(p2) = " + p1.equals(p2)
+        );
+
+
+        // ---------------------------------
+        // ЗАВДАННЯ 3
+        // ---------------------------------
+
+        System.out.println("\n===== ЗАВДАННЯ 3 =====");
+
+        BodyInterface pInterface =
+                new ParallelepipedInterface(2, 3, 4);
+
+        BodyInterface ballInterface =
+                new BallInterface(5);
+
+        BodyInterface[] interfaceBodies = {
+                pInterface,
+                ballInterface
+        };
+
+        for (BodyInterface body : interfaceBodies) {
+            body.Show();
+            System.out.println();
+        }
+
+        System.out.println("=================================");
+        System.out.println("Роботу завершено.");
+        System.out.println("=================================");
+
+        scanner.close();
+    }
+}
